@@ -70,14 +70,37 @@ const handleSystemThemeChange = () => {
     updateTheme(currentAppearance || 'system');
 };
 
-export function initializeTheme(): void {
+// export function initializeTheme(): void {
+//     if (typeof window === 'undefined') {
+//         return;
+//     }
+
+//     // Initialize theme from saved preference or default to system...
+//     const savedAppearance = getStoredAppearance();
+//     updateTheme(savedAppearance || 'system');
+
+//     // Set up system theme change listener...
+//     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
+// }
+
+export function initializeTheme(
+    defaultAppearance: Appearance = 'system',
+): void {
     if (typeof window === 'undefined') {
         return;
     }
 
     // Initialize theme from saved preference or default to system...
-    const savedAppearance = getStoredAppearance();
-    updateTheme(savedAppearance || 'system');
+    let savedAppearance = getStoredAppearance();
+
+    if (!savedAppearance) {
+        savedAppearance = defaultAppearance;
+
+        localStorage.setItem('appearance', savedAppearance);
+        setCookie('appearance', savedAppearance);
+    }
+
+    updateTheme(savedAppearance);
 
     // Set up system theme change listener...
     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
