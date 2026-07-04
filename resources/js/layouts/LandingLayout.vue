@@ -2,15 +2,17 @@
     <div
         class="relative min-h-screen overflow-x-hidden bg-gray-50/50 font-sans"
     >
-        
-        <div
-            class="absolute right-0 bottom-0 left-0 z-0 h-[155px] bg-white"
-        ></div>
+
 
         <!-- Header -->
         <header class="relative z-20">
+             <div class="bg-[#F7FBFD] p-4">
+        <div class="max-w-7xl mx-auto">
+            <img src="assets/60.jpg" class="shadow-2xl" alt="">
+        </div>
+    </div>
             <div class="sticky top-0 z-50 w-full bg-primary-blue shadow-md">
-                <div class="container mx-auto px-4">
+                <div class="max-w-7xl mx-auto px-4">
                     <div
                         class="flex min-h-[75px] items-center justify-between py-2"
                     >
@@ -77,7 +79,7 @@
                 </div>
 
                 <div class="bg-[#F7FBFD]">
-                    <div class="container mx-auto px-4">
+                    <div class="max-w-7xl mx-auto px-4">
                         <ul
                             class="text-md flex flex-wrap justify-center gap-x-6 gap-y-2 py-2.5 text-secondary-blue"
                         >
