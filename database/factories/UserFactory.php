@@ -25,9 +25,20 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'first_name' => fake()->firstName(),
+            'middle_name' => fake()->optional(0.8)->lastName(),
+            'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'mobile_number' => '09' . fake()->numerify('#########'),
+            'date_of_birth' => fake()->dateTimeBetween('-70 years', '-18 years')->format('Y-m-d'),
+            'civil_status' => fake()->randomElement(['single', 'married', 'widowed', 'separated']),
+            'address' => fake()->streetAddress() . ', ' . fake()->city(),
+            'occupation' => fake()->jobTitle(),
+            'source_of_income' => fake()->randomElement(['Salary', 'Business income', 'Remittance', 'Pension', 'Freelance income']),
+            'tin' => fake()->optional(0.7)->numerify('###-###-###-###'),
+            'id_type' => fake()->randomElement(['philid', 'passport', 'drivers_license', 'umid', 'prc', 'postal']),
+            'id_number' => fake()->numerify('##########'),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'two_factor_secret' => null,
@@ -41,7 +52,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
@@ -51,7 +62,7 @@ class UserFactory extends Factory
      */
     public function withTwoFactor(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'two_factor_secret' => encrypt('secret'),
             'two_factor_recovery_codes' => encrypt(json_encode(['recovery-code-1'])),
             'two_factor_confirmed_at' => now(),
