@@ -2,13 +2,7 @@
     <div
         class="relative min-h-screen overflow-x-hidden bg-gray-50/50 font-sans"
     >
-        <!-- Background -->
-        <img
-            src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=400&q=80"
-            alt="Header Graphic"
-            class="absolute right-[50px] bottom-[100px] z-10 hidden h-[75%] max-w-[35%] object-contain xl:block"
-        />
-
+        
         <div
             class="absolute right-0 bottom-0 left-0 z-0 h-[155px] bg-white"
         ></div>
