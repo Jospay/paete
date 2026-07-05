@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-[url('assets/loanbg.jpg')] bg-cover bg-center bg-no-repeat py-12 md:py-16 lg:py-20">
+    <section id="loan" class="bg-[url('assets/loanbg.jpg')] bg-cover bg-center bg-no-repeat py-12 md:py-16 lg:py-20">
 
         <div class="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
 
@@ -39,19 +39,19 @@
 
                     <ul class="mb-8 space-y-3 text-lg font-medium text-secondary-blue md:mb-10 lg:text-xl">
                         <li class="flex items-start sm:items-center">
-                            <span class="mr-3 shrink-0 text-primary-blue">✔</span> 
+                            <span class="mr-3 shrink-0 text-primary-blue">✔</span>
                             <span>Competitive interest rates</span>
                         </li>
                         <li class="flex items-start sm:items-center">
-                            <span class="mr-3 shrink-0 text-primary-blue">✔</span> 
+                            <span class="mr-3 shrink-0 text-primary-blue">✔</span>
                             <span>Fast approval process</span>
                         </li>
                         <li class="flex items-start sm:items-center">
-                            <span class="mr-3 shrink-0 text-primary-blue">✔</span> 
+                            <span class="mr-3 shrink-0 text-primary-blue">✔</span>
                             <span>Friendly local service</span>
                         </li>
                         <li class="flex items-start sm:items-center">
-                            <span class="mr-3 shrink-0 text-primary-blue">✔</span> 
+                            <span class="mr-3 shrink-0 text-primary-blue">✔</span>
                             <span>Flexible payment terms</span>
                         </li>
                     </ul>

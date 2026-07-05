@@ -1,6 +1,6 @@
 <template>
     <!-- Added bottom padding (pb-12 etc.) so the cards don't touch the footer or next section -->
-    <section class="border-t-[12px] border-secondary-blue bg-[#F7FBFD] pb-12 md:pb-16 lg:pb-20">
+    <section id="news" class="border-t-[12px] border-secondary-blue bg-[#F7FBFD] pb-12 md:pb-16 lg:pb-20">
         <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
 
             <!-- Title -->

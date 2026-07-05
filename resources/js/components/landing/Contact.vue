@@ -1,24 +1,24 @@
 <template>
-  <section id="contact-section">
+  <section id="contact-us">
     <h2 class="py-4 text-center text-xl font-bold text-white bg-[#095390]">Contact Us</h2>
 
     <div class="flex flex-col md:flex-row gap-10 max-w-7xl mx-auto p-6 md:p-10">
 
       <form class="flex-1 flex flex-col gap-4 p-6" method="POST" action="#contact-us">
         <input type="hidden" name="contact_form" value="1">
-        
+
         <input type="text" name="name" placeholder="Your Name" required
           class="w-full p-3 rounded-xl border border-[#08B3E5] text-black bg-[#F0FAFE] focus:outline-none focus:ring-1 focus:ring-[#08B3E5]">
-        
+
         <input type="email" name="email" placeholder="Email Address" required
           class="w-full p-3 rounded-xl border border-[#08B3E5] text-black bg-[#F0FAFE] focus:outline-none focus:ring-1 focus:ring-[#08B3E5]">
-        
+
         <input type="text" name="subject" placeholder="Subject"
           class="w-full p-3 rounded-xl border border-[#08B3E5] text-black bg-[#F0FAFE] focus:outline-none focus:ring-1 focus:ring-[#08B3E5]">
-        
+
         <textarea name="message" placeholder="Message" rows="5"
           class="w-full p-3 rounded-xl border border-[#08B3E5] text-black bg-[#F0FAFE] focus:outline-none focus:ring-1 focus:ring-[#08B3E5]"></textarea>
-        
+
         <button type="submit" class="mt-2 py-3 px-6 rounded-xl font-semibold text-white bg-[#00acee] hover:bg-[#0092c8] transition-colors">
           Send Message
         </button>

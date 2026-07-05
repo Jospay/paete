@@ -33,7 +33,7 @@ onMounted(async () => {
   $('.choose-prev-btn').on('click', () => {
     chooseOwl.trigger('prev.owl.carousel')
   })
-  
+
   $('.choose-next-btn').on('click', () => {
     chooseOwl.trigger('next.owl.carousel')
   })
@@ -41,27 +41,27 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="w-full bg-[#08B3E5] py-12 mb-20">
+  <section id="why" class="w-full bg-[#08B3E5] py-12 mb-20">
     <div class="container mx-auto px-4 max-w-6xl">
-      
+
       <!-- Using standard sky-500 instead of [#08B3E5] -->
       <h2 class="text-center text-[#08B3E5] py-3 mb-8 rounded-lg text-2xl font-bold bg-white w-full shadow-sm">
         Why Choose Us?
       </h2>
 
       <div class="relative w-full px-4 md:px-10" v-if="isMounted">
-          
+
         <!-- Navigation Buttons using standard sky colors -->
         <button class="choose-prev-btn absolute top-1/2 -left-2 md:-left-6 -translate-y-1/2 w-10 h-10 rounded-full shadow-lg z-10 bg-white hover:bg-[#08B3E5] transition-colors flex items-center justify-center text-xl text-[#08B3E5] hover:text-white">
           &#10094;
         </button>
-        
+
         <button class="choose-next-btn absolute top-1/2 -right-2 md:-right-6 -translate-y-1/2 w-10 h-10 rounded-full shadow-lg z-10 bg-white hover:bg-[#08B3E5] transition-colors flex items-center justify-center text-xl text-[#08B3E5] hover:text-white">
           &#10095;
         </button>
 
         <div id="choose_carousel" class="owl-carousel owl-theme py-4">
-          
+
           <!-- Card 1 -->
           <div class="item bg-white rounded-xl shadow-md text-center p-6 flex flex-col items-center justify-center min-h-56">
             <!-- Removed inline style, added max-w-24 (96px) -->

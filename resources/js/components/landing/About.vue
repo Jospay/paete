@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-[url('assets/aboutbg.jpg')] bg-cover bg-center bg-no-repeat py-12 md:py-16 lg:py-20">
+    <section id="about-us" class="bg-[url('assets/aboutbg.jpg')] bg-cover bg-center bg-no-repeat py-12 md:py-16 lg:py-20">
         <div class="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
 
             <!-- Section Title -->
