@@ -32,7 +32,7 @@
 
                     <!-- Image -->
                     <img
-                        src="assets/news1.png"
+                        src="assets/mobile.png"
                         class="h-72 w-full object-contain bg-white p-6"
                     />
 
