@@ -16,46 +16,62 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
 
-    resolve: async (name) => {
-        const page = await resolvePageComponent(
-            `./pages/${name}.vue`,
-            import.meta.glob<DefineComponent>('./pages/**/*.vue'),
-        );
+    // resolve: async (name) => {
+    // const page = await resolvePageComponent(
+    //  `./pages/${name}.vue`,
+    // import.meta.glob<DefineComponent>('./pages/**/*.vue'),
+    // );
 
-        // Only assign a layout if the page doesn't already define one
-        if (!page.default.layout) {
-            switch (true) {
-                // Landing page
-                case name === 'Welcome':
-                    page.default.layout = LandingLayout;
-                    break;
+    // Only assign a layout if the page doesn't already define one
+    // if (!page.default.layout) {
+    //    switch (true) {
+    // Landing page
+    //      case name === 'Welcome':
+    //        page.default.layout = LandingLayout;
+    //      break;
 
-                // Authentication pages
-                case name.startsWith('auth/'):
-                    page.default.layout = AuthLayout;
-                    break;
+    // Authentication pages
+    //case name.startsWith('auth/'):
+    //  page.default.layout = AuthLayout;
+    // break;
 
-                // Settings pages
-                case name.startsWith('settings/'):
-                    page.default.layout = [AppLayout, SettingsLayout];
-                    break;
+    // Settings pages
+    //  case name.startsWith('settings/'):
+    //    page.default.layout = [AppLayout, SettingsLayout];
+    //  break;
 
-                // Default application pages
-                default:
-                    page.default.layout = AppLayout;
-            }
+    // Default application pages
+    // default:
+    //    page.default.layout = AppLayout;
+    // }
+    // }
+
+    //return page;
+    //}
+    //
+    //,
+    //
+
+    layout: (name) => {
+        switch (true) {
+            case name === 'Welcome':
+                return LandingLayout;
+            case name.startsWith('auth/'):
+                return AuthLayout;
+            case name.startsWith('settings/'):
+                return [AppLayout, SettingsLayout];
+            default:
+                return AppLayout;
         }
-
-        return page;
     },
 
-    setup({ el, App, props, plugin }) {
-        createApp({
-            render: () => h(App, props),
-        })
-            .use(plugin)
-            .mount(el);
-    },
+    // setup({ el, App, props, plugin }) {
+    //   createApp({
+    //     render: () => h(App, props),
+    //})
+    //  .use(plugin)
+    //.mount(el);
+    //},
 
     progress: {
         color: '#4B5563',
