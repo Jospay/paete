@@ -66,17 +66,18 @@ onBeforeUnmount(() => {
                 class="grid grid-cols-1 items-start gap-8 pt-4 pb-40 lg:grid-cols-12"
             >
                 <div
-                    class="relative z-1 flex w-full flex-col items-start pb-5 text-left lg:col-span-12"
+                    class="relative z-10 flex w-full flex-col items-start pb-5 text-left lg:col-span-12"
                 >
+                    <!-- Text Adjustments for mobile viewports -->
                     <span
-                        class="mb-4 text-3xl leading-tight font-bold text-white md:text-6xl"
+                        class="mb-4 text-3xl leading-tight font-bold text-white sm:text-4xl md:text-6xl"
                     >
                         Welcome to <br />
                         Rural Bank of Paete Inc.
                     </span>
 
                     <p
-                        class="mb-6 max-w-[550px] text-base leading-6 text-slate-100 md:text-xl"
+                        class="mb-6 max-w-[550px] text-sm leading-relaxed text-slate-100 sm:text-base md:text-xl"
                     >
                         Serving our community with trust, care, and financial
                         empowerment since 1966. We offer secure and accessible
@@ -86,26 +87,27 @@ onBeforeUnmount(() => {
                     </p>
 
                     <span
-                        class="mb-3 inline-block rounded-full bg-[#FFCC00] px-5 py-2 text-base font-bold text-white capitalize shadow-sm md:text-3xl"
+                        class="mb-3 inline-block rounded-full bg-[#FFCC00] px-4 py-1.5 text-sm font-bold text-white capitalize shadow-sm sm:px-5 sm:py-2 sm:text-base md:text-xl lg:text-3xl"
                     >
                         SOW, SAVE, GROW WITH US!
                     </span>
 
-                    <div class="mb-6 flex gap-2 text-sm text-white">
-                        <span>✔ Safe & Secure Banking</span>
-                        <span>✔ Trusted by Generations</span>
-                        <span>✔ Locally Grown, Digitally Ready</span>
+                    <div class="mb-6 flex flex-wrap gap-x-4 gap-y-2 text-xs sm:text-sm text-white">
+                        <span>`✔` Safe & Secure Banking</span>
+                        <span>`✔` Trusted by Generations</span>
+                        <span>`✔` Locally Grown, Digitally Ready</span>
                     </div>
 
                     <a
                         href="#"
-                        class="inline-block w-full rounded-xl border-3 border-white bg-secondary-blue px-10 py-2 text-center text-2xl font-bold text-white shadow-lg hover:bg-[#003b6d] sm:w-auto"
+                        class="inline-block w-full rounded-xl border-3 border-white bg-secondary-blue px-6 py-2.5 text-center text-lg font-bold text-white shadow-lg hover:bg-[#003b6d] sm:w-auto sm:px-10 sm:py-2 sm:text-2xl"
                     >
                         Open an Account Now!
                     </a>
                 </div>
             </div>
 
+            <!-- Absolute background element image remains exactly as originally designed -->
             <div class="absolute right-0 bottom-0 z-0 hidden lg:block">
                 <img
                     src="assets/banner.png"
@@ -116,6 +118,7 @@ onBeforeUnmount(() => {
         </div>
     </div>
 
+    <!-- Container layout height definitions completely preserved (-mt-[134px]) -->
     <div class="container mx-auto -mt-[134px] mb-2 max-w-6xl px-4">
         <div class="relative w-full px-4 md:px-10" v-if="isMounted">
             <!-- Previous -->
