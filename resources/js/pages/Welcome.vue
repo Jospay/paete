@@ -13,6 +13,7 @@ import Offer from '@/components/landing/Offer.vue';
 import Security from '@/components/landing/Security.vue';
 import Testimonials from '@/components/landing/Testimonials.vue';
 import Why from '@/components/landing/Why.vue';
+import Footer from '@/components/landing/Footer.vue';
 </script>
 
 <template>
@@ -54,5 +55,8 @@ import Why from '@/components/landing/Why.vue';
 
         <!-- Map -->
         <Map />
+
+        <!-- Footer -->
+        <Footer />
     </HomeLayout>
 </template>
