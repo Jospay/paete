@@ -2,6 +2,8 @@
 
 namespace App\Concerns;
 
+use App\Enums\CivilStatus;
+use App\Enums\IdType;
 use App\Models\User;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Rule;
@@ -114,7 +116,7 @@ trait ProfileValidationRules
      */
     protected function civilStatusRules(): array
     {
-        return ['required', 'in:single,married,widowed,separated'];
+        return ['required', Rule::enum(CivilStatus::class)];
     }
 
     /**
@@ -164,7 +166,7 @@ trait ProfileValidationRules
      */
     protected function idTypeRules(): array
     {
-        return ['required', 'in:philid,passport,drivers_license,umid,prc,postal'];
+        return ['required', Rule::enum(IdType::class)];
     }
 
     /**
