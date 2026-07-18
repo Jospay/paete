@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/sidebar';
 import { usePermissions } from '@/composables/usePermissions';
 import { dashboard } from '@/routes';
+import admin from '@/routes/admin';
 import type { NavItem } from '@/types';
 
 const { can } = usePermissions();
@@ -29,7 +30,7 @@ const allNavItems: NavItem[] = [
     },
     {
         title: 'Staff',
-        href: '/admin/users',
+        href: admin.users.index(),
         icon: Users,
         permission: 'staff.view',
     },
