@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { router } from '@inertiajs/vue3';
 import { KeyRound } from '@lucide/vue';
 import { destroy } from '@/actions/Laravel/Passkeys/Http/Controllers/PasskeyRegistrationController';
@@ -62,4 +62,4 @@ const handleRegisterSuccess = () => {
 
         <PasskeyRegister @success="handleRegisterSuccess" />
     </div>
-</template>
+</template> -->
