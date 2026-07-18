@@ -18,6 +18,22 @@ trait PasswordValidationRules
     }
 
     /**
+     * Get the validation rules used to validate an optional password change.
+     *
+     * Used on update forms, where leaving the field blank means "keep the
+     * current password" rather than being an error. 'nullable' short-circuits
+     * the remaining rules (including 'confirmed') when the value is empty,
+     * so the confirmation field is only checked when a new password is
+     * actually being set.
+     *
+     * @return array<int, Password|ValidationRule|array<mixed>|string>
+     */
+    protected function optionalPasswordRules(): array
+    {
+        return ['nullable', 'string', Password::default(), 'confirmed'];
+    }
+
+    /**
      * Get the validation rules used to validate the current password.
      *
      * @return array<int, Password|ValidationRule|array<mixed>|string>
