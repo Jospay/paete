@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,10 +19,29 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'first_name' => 'Test',
-            'last_name' => 'User',
-            'email' => 'test@example.com',
+        $this->call([
+            RolePermissionSeeder::class,
         ]);
+
+        foreach (RoleEnum::cases() as $role) {
+            $user = User::factory()->create([
+                'first_name' => str($role->value)
+                    ->replace('_', ' ')
+                    ->title()
+                    ->explode(' ')
+                    ->first(),
+                'last_name' => 'User',
+                'email' => strtolower(str($role->value)->replace('_', '.')) . '@example.com',
+                'password' => Hash::make('password'),
+            ]);
+
+            $user->assignRole($role);
+        }
+
+        // User::factory()->create([
+        //     'first_name' => 'Test',
+        //     'last_name' => 'User',
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }
