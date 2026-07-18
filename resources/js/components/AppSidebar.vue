@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { LayoutGrid } from '@lucide/vue';
+import { LayoutGrid, Users } from '@lucide/vue';
+import { computed } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
 // import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -14,16 +15,37 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { usePermissions } from '@/composables/usePermissions';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 
-const mainNavItems: NavItem[] = [
+const { can } = usePermissions();
+
+const allNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
     },
+    {
+        title: 'Staff',
+        href: '/admin/users',
+        icon: Users,
+        permission: 'staff.view',
+    },
 ];
+
+const mainNavItems = computed(() =>
+    allNavItems.filter((item) => can(item.permission)),
+);
+
+// const mainNavItems: NavItem[] = [
+//     {
+//         title: 'Dashboard',
+//         href: dashboard(),
+//         icon: LayoutGrid,
+//     },
+// ];
 
 // const footerNavItems: NavItem[] = [
 //     {
