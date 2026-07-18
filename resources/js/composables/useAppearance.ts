@@ -40,21 +40,21 @@ const setCookie = (name: string, value: string, days = 365) => {
     document.cookie = `${name}=${value};path=/;max-age=${maxAge};SameSite=Lax`;
 };
 
-const mediaQuery = () => {
-    if (typeof window === 'undefined') {
-        return null;
-    }
+// const mediaQuery = () => {
+//     if (typeof window === 'undefined') {
+//         return null;
+//     }
 
-    return window.matchMedia('(prefers-color-scheme: dark)');
-};
+//     return window.matchMedia('(prefers-color-scheme: dark)');
+// };
 
-const getStoredAppearance = () => {
-    if (typeof window === 'undefined') {
-        return null;
-    }
+// const getStoredAppearance = () => {
+//     if (typeof window === 'undefined') {
+//         return null;
+//     }
 
-    return localStorage.getItem('appearance') as Appearance | null;
-};
+//     return localStorage.getItem('appearance') as Appearance | null;
+// };
 
 const prefersDark = (): boolean => {
     if (typeof window === 'undefined') {
@@ -64,11 +64,11 @@ const prefersDark = (): boolean => {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
 };
 
-const handleSystemThemeChange = () => {
-    const currentAppearance = getStoredAppearance();
+// const handleSystemThemeChange = () => {
+//     const currentAppearance = getStoredAppearance();
 
-    updateTheme(currentAppearance || 'system');
-};
+//     updateTheme(currentAppearance || 'system');
+// };
 
 // export function initializeTheme(): void {
 //     if (typeof window === 'undefined') {
@@ -83,27 +83,38 @@ const handleSystemThemeChange = () => {
 //     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
 // }
 
-export function initializeTheme(
-    defaultAppearance: Appearance = 'system',
-): void {
+// export function initializeTheme(
+//     defaultAppearance: Appearance = 'system',
+// ): void {
+//     if (typeof window === 'undefined') {
+//         return;
+//     }
+
+//     // Initialize theme from saved preference or default to system...
+//     let savedAppearance = getStoredAppearance();
+
+//     if (!savedAppearance) {
+//         savedAppearance = defaultAppearance;
+
+//         localStorage.setItem('appearance', savedAppearance);
+//         setCookie('appearance', savedAppearance);
+//     }
+
+//     updateTheme(savedAppearance);
+
+//     // Set up system theme change listener...
+//     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
+// }
+
+export function initializeTheme(): void {
     if (typeof window === 'undefined') {
         return;
     }
 
-    // Initialize theme from saved preference or default to system...
-    let savedAppearance = getStoredAppearance();
+    localStorage.setItem('appearance', 'light');
+    setCookie('appearance', 'light');
 
-    if (!savedAppearance) {
-        savedAppearance = defaultAppearance;
-
-        localStorage.setItem('appearance', savedAppearance);
-        setCookie('appearance', savedAppearance);
-    }
-
-    updateTheme(savedAppearance);
-
-    // Set up system theme change listener...
-    mediaQuery()?.addEventListener('change', handleSystemThemeChange);
+    document.documentElement.classList.remove('dark');
 }
 
 const appearance = ref<Appearance>('system');
