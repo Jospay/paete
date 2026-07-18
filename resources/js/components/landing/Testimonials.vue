@@ -23,7 +23,7 @@ const testimonials: Testimonial[] = [
         image: 'assets/g.png',
         name: 'Maria Santos',
         work: 'Small Business Owner',
-        star: 1,
+        star: 4.8,
         description:
             'Rural Bank of Paete has been my trusted partner in growing my sari-sari store. Their loan process is fast, and the staff treats me like a family.',
     },
@@ -32,7 +32,7 @@ const testimonials: Testimonial[] = [
         image: 'assets/g.png',
         name: 'Angela Reyes',
         work: 'Teacher',
-        star: 1,
+        star: 4.4,
         description:
             "I opened my first savings account here, and I've never looked back. They not only help me save but also guide me in reaching my financial goals.",
     },
@@ -41,7 +41,7 @@ const testimonials: Testimonial[] = [
         image: 'assets/b.png',
         name: 'Jonathan Dela Cruz',
         work: 'OFW',
-        star: 1,
+        star: 4.5,
         description:
             "Every while I'm working abroad, I can easily manage my savings and send money to my family through their online banking. Truly reliable and convenient.",
     },
@@ -50,7 +50,7 @@ const testimonials: Testimonial[] = [
         image: 'assets/g.png',
         name: 'Maria Santos',
         work: 'Small Business Owner',
-        star: 1,
+        star: 4.6,
         description:
             'Rural Bank of Paete has been my trusted partner in growing my sari-sari store. Their loan process is fast, and the staff treats me like a family.',
     },
@@ -59,7 +59,7 @@ const testimonials: Testimonial[] = [
         image: 'assets/g.png',
         name: 'Angela Reyes',
         work: 'Teacher',
-        star: 1,
+        star: 4.4,
         description:
             "I opened my first savings account here, and I've never looked back. They not only help me save but also guide me in reaching my financial goals.",
     },
@@ -68,7 +68,7 @@ const testimonials: Testimonial[] = [
         image: 'assets/b.png',
         name: 'Jonathan Dela Cruz',
         work: 'OFW',
-        star: 1,
+        star: 4.5,
         description:
             "Every while I'm working abroad, I can easily manage my savings and send money to my family through their online banking. Truly reliable and convenient.",
     },
@@ -105,6 +105,7 @@ onMounted(async () => {
         console.error(
             'jQuery or Owl Carousel not loaded — check your CDN script tags.',
         );
+
         return;
     }
 
@@ -146,6 +147,7 @@ onMounted(async () => {
     }, 100);
 
     const stageOwl = document.querySelector('#testi-owl .owl-stage');
+
     if (stageOwl) {
         stageOwl.classList.add('py-12', 'mt-12');
     }
@@ -155,6 +157,7 @@ onUnmounted(() => {
     if ($testimonialOwl && $testimonialOwl.data('owl.carousel')) {
         $testimonialOwl.trigger('destroy.owl.carousel');
     }
+
     window.$('.testimonial-prev-btn').off('click');
     window.$('.testimonial-next-btn').off('click');
 });
