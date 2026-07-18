@@ -8,6 +8,8 @@ export interface User {
     full_name: string;
     initials: string;
 
+    avatar?: string;
+
     email: string;
     email_verified: boolean;
     email_verified_at: string | null;
@@ -37,4 +39,6 @@ export interface User {
         update: boolean;
         delete: boolean;
     };
+
+    [key: string]: unknown;
 }
