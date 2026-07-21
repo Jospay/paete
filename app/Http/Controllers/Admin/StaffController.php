@@ -29,7 +29,7 @@ class StaffController extends Controller
      */
     public function index(Request $request): Response
     {
-        Gate::authorize('viewAny', User::class);
+        Gate::authorize('viewAny', [User::class, 'staff']);
 
         $allowedSorts = [
             'first_name',
@@ -85,7 +85,7 @@ class StaffController extends Controller
      */
     public function create(): Response
     {
-        Gate::authorize('create', User::class);
+        Gate::authorize('create', [User::class, 'staff']);
 
         return Inertia::render('admin/staff/Create', [
             'roles' => RoleEnum::staffOptions(),
@@ -101,7 +101,7 @@ class StaffController extends Controller
         StoreStaffRequest $request,
         CreateStaffAction $action
     ): RedirectResponse {
-        Gate::authorize('create', User::class);
+        Gate::authorize('create', [User::class, 'staff']);
 
         $action->execute($request->validated());
 
