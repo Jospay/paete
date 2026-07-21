@@ -1,78 +1,66 @@
 <script setup lang="ts">
 import { Head, usePage } from '@inertiajs/vue3';
+import {
+    IconBuildingBank,
+    IconCreditCard,
+    IconWallet,
+} from '@tabler/icons-vue';
+
 import { computed } from 'vue';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import DashboardStatCard from '@/components/dashboard/DashboardStatCard.vue';
 
-defineProps<{
+const props = defineProps<{
     accounts: unknown[];
     loans: unknown[];
     cards: unknown[];
 }>();
 
 const page = usePage();
+
 const user = computed(() => page.props.auth.user);
 </script>
 
 <template>
     <Head title="Dashboard" />
 
-    <div class="flex flex-1 flex-col gap-4 p-4">
-        <h1 class="text-xl font-semibold">
-            Welcome back, {{ user.first_name }}
-        </h1>
+    <div class="flex flex-1 flex-col gap-6 p-4 lg:p-6">
+        <div>
+            <h1 class="text-2xl font-semibold">
+                Welcome back, {{ user.first_name }}
+            </h1>
 
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Card>
-                <CardHeader>
-                    <CardTitle>Accounts</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p
-                        v-if="accounts.length === 0"
-                        class="text-sm text-muted-foreground"
-                    >
-                        You don't have any accounts yet.
-                    </p>
-                    <p v-else class="text-2xl font-semibold">
-                        {{ accounts.length }}
-                    </p>
-                </CardContent>
-            </Card>
+            <p class="text-muted-foreground">
+                Here's a quick overview of your banking products.
+            </p>
+        </div>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Loans</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p
-                        v-if="loans.length === 0"
-                        class="text-sm text-muted-foreground"
-                    >
-                        No active loans.
-                    </p>
-                    <p v-else class="text-2xl font-semibold">
-                        {{ loans.length }}
-                    </p>
-                </CardContent>
-            </Card>
+        <div
+            class="grid grid-cols-1 gap-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs sm:grid-cols-2 xl:grid-cols-3"
+        >
+            <DashboardStatCard
+                title="Accounts"
+                :value="props.accounts.length"
+                description="Active accounts"
+                footer="Manage your savings and checking accounts."
+                :icon="IconBuildingBank"
+            />
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Cards</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p
-                        v-if="cards.length === 0"
-                        class="text-sm text-muted-foreground"
-                    >
-                        No cards issued yet.
-                    </p>
-                    <p v-else class="text-2xl font-semibold">
-                        {{ cards.length }}
-                    </p>
-                </CardContent>
-            </Card>
+            <DashboardStatCard
+                title="Loans"
+                :value="props.loans.length"
+                description="Current loans"
+                footer="Track loan repayments and balances."
+                :icon="IconWallet"
+            />
+
+            <DashboardStatCard
+                title="Cards"
+                :value="props.cards.length"
+                description="Issued cards"
+                footer="View and manage your cards."
+                :icon="IconCreditCard"
+            />
         </div>
     </div>
 </template>

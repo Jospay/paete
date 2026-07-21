@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    IconBriefcase,
+    IconBuildingBank,
+    IconShieldCheck,
+    IconUsers,
+    IconWallet,
+} from '@tabler/icons-vue';
+
+import DashboardStatCard from '@/components/dashboard/DashboardStatCard.vue';
 
 interface StaffSummary {
     total: number;
@@ -12,7 +20,7 @@ interface CustomerSummary {
     unverified: number;
 }
 
-defineProps<{
+const props = defineProps<{
     staffSummary: StaffSummary | null;
     customerSummary: CustomerSummary | null;
     accountSummary: Record<string, unknown> | null;
@@ -24,81 +32,71 @@ defineProps<{
 <template>
     <Head title="Dashboard" />
 
-    <div class="flex flex-1 flex-col gap-4 p-4">
-        <h1 class="text-xl font-semibold">Dashboard</h1>
+    <div class="flex flex-1 flex-col gap-6 p-4 lg:p-6">
+        <div>
+            <h1 class="text-2xl font-semibold">Dashboard</h1>
 
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Card v-if="staffSummary">
-                <CardHeader>
-                    <CardTitle>Staff</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p class="text-2xl font-semibold">
-                        {{ staffSummary.total }}
-                    </p>
-                    <p class="text-sm text-muted-foreground">
-                        Total staff members
-                    </p>
-                </CardContent>
-            </Card>
+            <p class="text-muted-foreground">
+                Overview of your banking system.
+            </p>
+        </div>
 
-            <Card v-if="customerSummary">
-                <CardHeader>
-                    <CardTitle>Customers</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p class="text-2xl font-semibold">
-                        {{ customerSummary.total }}
-                    </p>
-                    <p class="text-sm text-muted-foreground">
-                        Total customers
-                        <span v-if="customerSummary.unverified">
-                            · {{ customerSummary.unverified }} unverified
-                        </span>
-                    </p>
-                </CardContent>
-            </Card>
+        <div
+            class="grid grid-cols-1 gap-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs sm:grid-cols-2 xl:grid-cols-3"
+        >
+            <DashboardStatCard
+                v-if="props.staffSummary"
+                title="Staff"
+                :value="props.staffSummary.total"
+                description="Total staff members"
+                footer="Active personnel in the organization."
+                :icon="IconBriefcase"
+            />
 
-            <!--
-                Account/loan/compliance cards intentionally left as
-                placeholders - fill these in once DashboardController's
-                corresponding TODO methods return real data.
-            -->
-            <Card v-if="accountSummary">
-                <CardHeader>
-                    <CardTitle>Accounts</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p class="text-sm text-muted-foreground">Coming soon.</p>
-                </CardContent>
-            </Card>
+            <DashboardStatCard
+                v-if="props.customerSummary"
+                title="Customers"
+                :value="props.customerSummary.total"
+                :description="`${props.customerSummary.unverified} awaiting verification`"
+                footer="Registered customers."
+                :icon="IconUsers"
+            />
 
-            <Card v-if="loanSummary">
-                <CardHeader>
-                    <CardTitle>Loans</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p class="text-sm text-muted-foreground">Coming soon.</p>
-                </CardContent>
-            </Card>
+            <DashboardStatCard
+                v-if="props.accountSummary"
+                title="Accounts"
+                value="—"
+                description="Coming soon"
+                footer="Account statistics will appear here."
+                :icon="IconBuildingBank"
+            />
 
-            <Card v-if="complianceSummary">
-                <CardHeader>
-                    <CardTitle>Compliance</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p class="text-sm text-muted-foreground">Coming soon.</p>
-                </CardContent>
-            </Card>
+            <DashboardStatCard
+                v-if="props.loanSummary"
+                title="Loans"
+                value="—"
+                description="Coming soon"
+                footer="Loan statistics will appear here."
+                :icon="IconWallet"
+            />
+
+            <DashboardStatCard
+                v-if="props.complianceSummary"
+                title="Compliance"
+                value="—"
+                description="Coming soon"
+                footer="Compliance statistics will appear here."
+                :icon="IconShieldCheck"
+            />
         </div>
 
         <p
             v-if="
-                !staffSummary &&
-                !customerSummary &&
-                !accountSummary &&
-                !loanSummary &&
-                !complianceSummary
+                !props.staffSummary &&
+                !props.customerSummary &&
+                !props.accountSummary &&
+                !props.loanSummary &&
+                !props.complianceSummary
             "
             class="text-sm text-muted-foreground"
         >
