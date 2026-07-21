@@ -6,6 +6,7 @@ import { ref, watch } from 'vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+import { usePermissions } from '@/composables/usePermissions';
 import { create, index } from '@/routes/admin/customers';
 
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
         search: string | null;
     };
 }
+
+const { can } = usePermissions();
 
 const props = defineProps<Props>();
 
@@ -54,7 +57,7 @@ watch(search, (value) => {
             />
         </div>
 
-        <Button as-child>
+        <Button v-if="can('customers.create')" as-child>
             <Link :href="create()"> Add Customer </Link>
         </Button>
     </div>
