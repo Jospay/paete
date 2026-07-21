@@ -18,8 +18,15 @@ import { Spinner } from '@/components/ui/spinner';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
 
+interface EnumOption {
+    value: string;
+    label: string;
+}
+
 defineProps<{
     passwordRules: string;
+    civilStatuses: EnumOption[];
+    idTypes: EnumOption[];
 }>();
 
 defineOptions({
@@ -34,7 +41,15 @@ const page = usePage();
 const steps = [
     {
         label: 'Personal info',
-        fields: ['first_name', 'middle_name', 'last_name', 'email', 'mobile_number', 'date_of_birth', 'civil_status'],
+        fields: [
+            'first_name',
+            'middle_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'date_of_birth',
+            'civil_status',
+        ],
     },
     {
         label: 'Address & employment',
@@ -139,15 +154,21 @@ function submit() {
                 <div class="flex flex-col items-center gap-1.5">
                     <div
                         class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-medium"
-                        :class="index <= currentStep
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted text-muted-foreground'"
+                        :class="
+                            index <= currentStep
+                                ? 'bg-primary text-primary-foreground'
+                                : 'bg-muted text-muted-foreground'
+                        "
                     >
                         {{ index + 1 }}
                     </div>
                     <span
-                        class="whitespace-nowrap text-center text-xs"
-                        :class="index === currentStep ? 'text-foreground font-medium' : 'text-muted-foreground'"
+                        class="text-center text-xs whitespace-nowrap"
+                        :class="
+                            index === currentStep
+                                ? 'font-medium text-foreground'
+                                : 'text-muted-foreground'
+                        "
                     >
                         {{ step.label }}
                     </span>
@@ -176,7 +197,10 @@ function submit() {
                         :aria-invalid="form.invalid('first_name')"
                         @blur="form.validate('first_name')"
                     />
-                    <InputError v-if="form.invalid('first_name')" :message="form.errors.first_name" />
+                    <InputError
+                        v-if="form.invalid('first_name')"
+                        :message="form.errors.first_name"
+                    />
                 </div>
 
                 <div class="grid gap-2">
@@ -190,7 +214,10 @@ function submit() {
                         :aria-invalid="form.invalid('middle_name')"
                         @blur="form.validate('middle_name')"
                     />
-                    <InputError v-if="form.invalid('middle_name')" :message="form.errors.middle_name" />
+                    <InputError
+                        v-if="form.invalid('middle_name')"
+                        :message="form.errors.middle_name"
+                    />
                 </div>
 
                 <div class="grid gap-2">
@@ -205,7 +232,10 @@ function submit() {
                         :aria-invalid="form.invalid('last_name')"
                         @blur="form.validate('last_name')"
                     />
-                    <InputError v-if="form.invalid('last_name')" :message="form.errors.last_name" />
+                    <InputError
+                        v-if="form.invalid('last_name')"
+                        :message="form.errors.last_name"
+                    />
                 </div>
 
                 <div class="grid gap-2">
@@ -220,7 +250,10 @@ function submit() {
                         :aria-invalid="form.invalid('email')"
                         @blur="form.validate('email')"
                     />
-                    <InputError v-if="form.invalid('email')" :message="form.errors.email" />
+                    <InputError
+                        v-if="form.invalid('email')"
+                        :message="form.errors.email"
+                    />
                 </div>
 
                 <div class="grid gap-2">
@@ -235,7 +268,10 @@ function submit() {
                         :aria-invalid="form.invalid('mobile_number')"
                         @blur="form.validate('mobile_number')"
                     />
-                    <InputError v-if="form.invalid('mobile_number')" :message="form.errors.mobile_number" />
+                    <InputError
+                        v-if="form.invalid('mobile_number')"
+                        :message="form.errors.mobile_number"
+                    />
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
@@ -249,23 +285,40 @@ function submit() {
                             :aria-invalid="form.invalid('date_of_birth')"
                             @blur="form.validate('date_of_birth')"
                         />
-                        <InputError v-if="form.invalid('date_of_birth')" :message="form.errors.date_of_birth" />
+                        <InputError
+                            v-if="form.invalid('date_of_birth')"
+                            :message="form.errors.date_of_birth"
+                        />
                     </div>
 
                     <div class="grid gap-2">
                         <Label for="civil_status">Civil status</Label>
-                        <Select v-model="form.civil_status" required @update:model-value="form.validate('civil_status')">
-                            <SelectTrigger id="civil_status" class="w-full" :aria-invalid="form.invalid('civil_status')">
+                        <Select
+                            v-model="form.civil_status"
+                            required
+                            @update:model-value="form.validate('civil_status')"
+                        >
+                            <SelectTrigger
+                                id="civil_status"
+                                class="w-full"
+                                :aria-invalid="form.invalid('civil_status')"
+                            >
                                 <SelectValue placeholder="Select status" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="single">Single</SelectItem>
-                                <SelectItem value="married">Married</SelectItem>
-                                <SelectItem value="widowed">Widowed</SelectItem>
-                                <SelectItem value="separated">Separated</SelectItem>
+                                <SelectItem
+                                    v-for="option in civilStatuses"
+                                    :key="option.value"
+                                    :value="option.value"
+                                >
+                                    {{ option.label }}
+                                </SelectItem>
                             </SelectContent>
                         </Select>
-                        <InputError v-if="form.invalid('civil_status')" :message="form.errors.civil_status" />
+                        <InputError
+                            v-if="form.invalid('civil_status')"
+                            :message="form.errors.civil_status"
+                        />
                     </div>
                 </div>
             </div>
@@ -284,7 +337,10 @@ function submit() {
                         :aria-invalid="form.invalid('address')"
                         @blur="form.validate('address')"
                     />
-                    <InputError v-if="form.invalid('address')" :message="form.errors.address" />
+                    <InputError
+                        v-if="form.invalid('address')"
+                        :message="form.errors.address"
+                    />
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
@@ -299,7 +355,10 @@ function submit() {
                             :aria-invalid="form.invalid('occupation')"
                             @blur="form.validate('occupation')"
                         />
-                        <InputError v-if="form.invalid('occupation')" :message="form.errors.occupation" />
+                        <InputError
+                            v-if="form.invalid('occupation')"
+                            :message="form.errors.occupation"
+                        />
                     </div>
 
                     <div class="grid gap-2">
@@ -313,7 +372,10 @@ function submit() {
                             :aria-invalid="form.invalid('source_of_income')"
                             @blur="form.validate('source_of_income')"
                         />
-                        <InputError v-if="form.invalid('source_of_income')" :message="form.errors.source_of_income" />
+                        <InputError
+                            v-if="form.invalid('source_of_income')"
+                            :message="form.errors.source_of_income"
+                        />
                     </div>
                 </div>
 
@@ -327,7 +389,10 @@ function submit() {
                         :aria-invalid="form.invalid('tin')"
                         @blur="form.validate('tin')"
                     />
-                    <InputError v-if="form.invalid('tin')" :message="form.errors.tin" />
+                    <InputError
+                        v-if="form.invalid('tin')"
+                        :message="form.errors.tin"
+                    />
                 </div>
             </div>
 
@@ -335,20 +400,32 @@ function submit() {
             <div v-show="currentStep === 2" class="grid gap-6">
                 <div class="grid gap-2">
                     <Label for="id_type">Government ID type</Label>
-                    <Select v-model="form.id_type" required @update:model-value="form.validate('id_type')">
-                        <SelectTrigger id="id_type" class="w-full" :aria-invalid="form.invalid('id_type')">
+                    <Select
+                        v-model="form.id_type"
+                        required
+                        @update:model-value="form.validate('id_type')"
+                    >
+                        <SelectTrigger
+                            id="id_type"
+                            class="w-full"
+                            :aria-invalid="form.invalid('id_type')"
+                        >
                             <SelectValue placeholder="Select ID type" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="philid">PhilID (National ID)</SelectItem>
-                            <SelectItem value="passport">Passport</SelectItem>
-                            <SelectItem value="drivers_license">Driver's license</SelectItem>
-                            <SelectItem value="umid">UMID</SelectItem>
-                            <SelectItem value="prc">PRC ID</SelectItem>
-                            <SelectItem value="postal">Postal ID</SelectItem>
+                            <SelectItem
+                                v-for="option in idTypes"
+                                :key="option.value"
+                                :value="option.value"
+                            >
+                                {{ option.label }}
+                            </SelectItem>
                         </SelectContent>
                     </Select>
-                    <InputError v-if="form.invalid('id_type')" :message="form.errors.id_type" />
+                    <InputError
+                        v-if="form.invalid('id_type')"
+                        :message="form.errors.id_type"
+                    />
                 </div>
 
                 <div class="grid gap-2">
@@ -362,7 +439,10 @@ function submit() {
                         :aria-invalid="form.invalid('id_number')"
                         @blur="form.validate('id_number')"
                     />
-                    <InputError v-if="form.invalid('id_number')" :message="form.errors.id_number" />
+                    <InputError
+                        v-if="form.invalid('id_number')"
+                        :message="form.errors.id_number"
+                    />
                 </div>
             </div>
 
@@ -379,7 +459,10 @@ function submit() {
                         :aria-invalid="form.invalid('password')"
                         @blur="form.validate('password')"
                     />
-                    <InputError v-if="form.invalid('password')" :message="form.errors.password" />
+                    <InputError
+                        v-if="form.invalid('password')"
+                        :message="form.errors.password"
+                    />
                 </div>
 
                 <div class="grid gap-2">
@@ -393,7 +476,10 @@ function submit() {
                         :aria-invalid="form.invalid('password_confirmation')"
                         @blur="form.validate('password_confirmation')"
                     />
-                    <InputError v-if="form.invalid('password_confirmation')" :message="form.errors.password_confirmation" />
+                    <InputError
+                        v-if="form.invalid('password_confirmation')"
+                        :message="form.errors.password_confirmation"
+                    />
                 </div>
             </div>
 
