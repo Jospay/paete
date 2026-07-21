@@ -41,6 +41,7 @@ const page = usePage();
 const steps = [
     {
         label: 'Personal info',
+        shortLabel: 'Personal',
         fields: [
             'first_name',
             'middle_name',
@@ -53,14 +54,17 @@ const steps = [
     },
     {
         label: 'Address & employment',
+        shortLabel: 'Address',
         fields: ['address', 'occupation', 'source_of_income'],
     },
     {
         label: 'Identity verification',
+        shortLabel: 'Identity',
         fields: ['id_type', 'id_number'],
     },
     {
         label: 'Security',
+        shortLabel: 'Security',
         fields: ['password', 'password_confirmation'],
     },
 ] as const;
@@ -147,11 +151,14 @@ function submit() {
 <template>
     <Head title="Register" />
 
-    <form @submit.prevent="submit" class="flex flex-col gap-6">
+    <form
+        @submit.prevent="submit"
+        class="flex w-full max-w-md flex-col gap-6 sm:max-w-lg"
+    >
         <!-- Step indicator -->
-        <div class="flex items-start gap-2">
+        <div class="flex items-start gap-1 sm:gap-2">
             <template v-for="(step, index) in steps" :key="step.label">
-                <div class="flex flex-col items-center gap-1.5">
+                <div class="flex min-w-0 flex-col items-center gap-1.5">
                     <div
                         class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-medium"
                         :class="
@@ -163,14 +170,15 @@ function submit() {
                         {{ index + 1 }}
                     </div>
                     <span
-                        class="text-center text-xs whitespace-nowrap"
+                        class="max-w-18 truncate text-center text-[11px] leading-tight sm:max-w-none sm:text-xs sm:whitespace-nowrap"
                         :class="
                             index === currentStep
                                 ? 'font-medium text-foreground'
                                 : 'text-muted-foreground'
                         "
                     >
-                        {{ step.label }}
+                        <span class="sm:hidden">{{ step.shortLabel }}</span>
+                        <span class="hidden sm:inline">{{ step.label }}</span>
                     </span>
                 </div>
                 <div
@@ -274,7 +282,7 @@ function submit() {
                     />
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="grid gap-2">
                         <Label for="date_of_birth">Date of birth</Label>
                         <Input
@@ -343,7 +351,7 @@ function submit() {
                     />
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="grid gap-2">
                         <Label for="occupation">Occupation</Label>
                         <Input
@@ -484,12 +492,12 @@ function submit() {
             </div>
 
             <!-- Navigation -->
-            <div class="flex gap-3">
+            <div class="flex flex-col gap-3 sm:flex-row">
                 <Button
                     v-if="currentStep > 0"
                     type="button"
                     variant="outline"
-                    class="flex-1"
+                    class="w-full sm:flex-1"
                     @click="currentStep -= 1"
                 >
                     Back
@@ -498,7 +506,7 @@ function submit() {
                 <Button
                     v-if="!isLastStep"
                     type="button"
-                    class="flex-1"
+                    class="w-full sm:flex-1"
                     :disabled="form.validating"
                     @click="next"
                 >
@@ -509,7 +517,7 @@ function submit() {
                 <Button
                     v-else
                     type="submit"
-                    class="flex-1"
+                    class="w-full sm:flex-1"
                     :disabled="form.processing"
                     data-test="register-user-button"
                 >
