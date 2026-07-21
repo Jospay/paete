@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Customer\CreateCustomerAction;
 use App\Actions\Customer\UpdateCustomerAction;
 use App\Actions\User\DeleteUserAction;
 use App\Enums\CivilStatus;
 use App\Enums\IdType;
 use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\StoreCustomerRequest;
 use App\Http\Requests\Customer\UpdateCustomerRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -24,7 +26,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request): Response
     {
-        Gate::authorize('viewAny', User::class);
+        Gate::authorize('viewAny', [User::class, 'customers']);
 
         $allowedSorts = [
             'first_name',
@@ -73,6 +75,38 @@ class CustomerController extends Controller
             'sort' => $sort,
             'direction' => $direction,
         ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): Response
+    {
+        Gate::authorize('create', [User::class, 'customers']);
+
+        return Inertia::render('admin/customers/Create', [
+            'civilStatuses' => CivilStatus::options(),
+            'idTypes' => IdType::options(),
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(
+        StoreCustomerRequest $request,
+        CreateCustomerAction $action
+    ): RedirectResponse {
+        Gate::authorize('create', [User::class, 'customers']);
+
+        $action->execute($request->validated());
+
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => 'Customer created successfully!',
+        ]);
+
+        return to_route('admin.customers.index');
     }
 
     /**
