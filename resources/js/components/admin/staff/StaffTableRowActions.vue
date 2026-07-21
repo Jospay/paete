@@ -13,9 +13,9 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import type { User } from '@/types';
-
 import { edit, show } from '@/routes/admin/staff';
+
+import type { User } from '@/types';
 
 defineProps<{
     staff: User;

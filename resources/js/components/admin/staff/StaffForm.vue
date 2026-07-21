@@ -15,9 +15,9 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 
-import type { User } from '@/types';
-
 import { store, update } from '@/routes/admin/staff';
+
+import type { User } from '@/types';
 
 interface EnumOption {
     value: string;

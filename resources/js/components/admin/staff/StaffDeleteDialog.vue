@@ -17,9 +17,9 @@ import {
 
 import { Button } from '@/components/ui/button';
 
-import type { User } from '@/types';
-
 import { destroy } from '@/routes/admin/staff';
+
+import type { User } from '@/types';
 
 interface Props {
     open: boolean;

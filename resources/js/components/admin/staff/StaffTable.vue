@@ -11,11 +11,11 @@ import {
     TableRow,
 } from '@/components/ui/table';
 
+import { index } from '@/routes/admin/staff';
+
 import type { Paginated, User } from '@/types';
 
 import StaffTableRowActions from './StaffTableRowActions.vue';
-
-import { index } from '@/routes/admin/staff';
 
 const props = defineProps<{
     staff: Paginated<User>;
