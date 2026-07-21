@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { router } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { Search } from '@lucide/vue';
 import { ref, watch } from 'vue';
 
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-import { index } from '@/routes/admin/customers';
+import { create, index } from '@/routes/admin/customers';
 
 interface Props {
     filters: {
@@ -52,5 +53,9 @@ watch(search, (value) => {
                 class="pl-9"
             />
         </div>
+
+        <Button as-child>
+            <Link :href="create()"> Add Customer </Link>
+        </Button>
     </div>
 </template>

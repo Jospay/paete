@@ -38,6 +38,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // --- Customers ---
         Route::resource('customers', CustomerController::class)
+            ->only(['create', 'store'])
+            ->parameters(['customers' => 'customer'])
+            ->middleware('permission:' . PermissionEnum::CUSTOMERS_CREATE->value);
+
+        Route::resource('customers', CustomerController::class)
             ->only(['index', 'show'])
             ->parameters(['customers' => 'customer'])
             ->middleware('permission:' . PermissionEnum::CUSTOMERS_VIEW->value);

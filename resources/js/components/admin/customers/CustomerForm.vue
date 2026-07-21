@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from '@lucide/vue';
+import { computed } from 'vue';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,7 +15,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 
-import { update } from '@/routes/admin/customers';
+import { store, update } from '@/routes/admin/customers';
 
 import type { User } from '@/types';
 
@@ -24,10 +25,12 @@ interface EnumOption {
 }
 
 const props = defineProps<{
-    customer: User;
+    customer?: User | null;
     civilStatuses: EnumOption[];
     idTypes: EnumOption[];
 }>();
+
+const isEdit = computed(() => !!props.customer);
 
 const maxDateOfBirth = (() => {
     const date = new Date();
@@ -37,29 +40,41 @@ const maxDateOfBirth = (() => {
 })();
 
 const form = useForm({
-    first_name: props.customer.first_name,
-    middle_name: props.customer.middle_name ?? '',
-    last_name: props.customer.last_name,
+    first_name: props.customer?.first_name ?? '',
+    middle_name: props.customer?.middle_name ?? '',
+    last_name: props.customer?.last_name ?? '',
 
-    email: props.customer.email,
+    email: props.customer?.email ?? '',
 
-    mobile_number: props.customer.mobile_number ?? '',
+    mobile_number: props.customer?.mobile_number ?? '',
 
-    date_of_birth: props.customer.date_of_birth ?? '',
-    civil_status: props.customer.civil_status ?? '',
-    address: props.customer.address ?? '',
+    date_of_birth: props.customer?.date_of_birth ?? '',
+    civil_status: props.customer?.civil_status ?? '',
+    address: props.customer?.address ?? '',
 
-    occupation: props.customer.occupation ?? '',
-    source_of_income: props.customer.source_of_income ?? '',
+    occupation: props.customer?.occupation ?? '',
+    source_of_income: props.customer?.source_of_income ?? '',
 
-    tin: props.customer.tin ?? '',
+    tin: props.customer?.tin ?? '',
 
-    id_type: props.customer.id_type ?? '',
-    id_number: props.customer.id_number ?? '',
+    id_type: props.customer?.id_type ?? '',
+    id_number: props.customer?.id_number ?? '',
+
+    // Only sent/relevant when creating a new customer.
+    password: '',
+    password_confirmation: '',
 });
 
 function submit() {
-    form.put(update(props.customer).url, {
+    if (isEdit.value && props.customer) {
+        form.put(update(props.customer).url, {
+            preserveScroll: true,
+        });
+
+        return;
+    }
+
+    form.post(store().url, {
         preserveScroll: true,
     });
 }
@@ -163,6 +178,36 @@ function submit() {
                 >
                     {{ form.errors.mobile_number }}
                 </p>
+            </div>
+        </div>
+
+        <div v-if="!isEdit" class="grid gap-4 sm:grid-cols-2">
+            <div class="grid gap-2">
+                <Label for="password">Password *</Label>
+
+                <Input
+                    id="password"
+                    v-model="form.password"
+                    type="password"
+                    required
+                    autocomplete="new-password"
+                />
+
+                <p v-if="form.errors.password" class="text-sm text-destructive">
+                    {{ form.errors.password }}
+                </p>
+            </div>
+
+            <div class="grid gap-2">
+                <Label for="password_confirmation">Confirm password *</Label>
+
+                <Input
+                    id="password_confirmation"
+                    v-model="form.password_confirmation"
+                    type="password"
+                    required
+                    autocomplete="new-password"
+                />
             </div>
         </div>
 
@@ -334,7 +379,7 @@ function submit() {
                     v-if="form.processing"
                     class="mr-2 size-4 animate-spin"
                 />
-                Save changes
+                {{ isEdit ? 'Save changes' : 'Create customer' }}
             </Button>
         </div>
     </form>
