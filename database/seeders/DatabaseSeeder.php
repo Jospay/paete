@@ -38,6 +38,13 @@ class DatabaseSeeder extends Seeder
             $user->assignRole($role);
         }
 
+        // User::factory()
+        //     ->count(1000)
+        //     ->create()
+        //     ->each(function (User $user) {
+        //         $user->assignRole(RoleEnum::CUSTOMER);
+        //     });
+
         // User::factory()->create([
         //     'first_name' => 'Test',
         //     'last_name' => 'User',
